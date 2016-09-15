@@ -7,5 +7,19 @@
     <link rel="stylesheet" href="css/loja.css" media="screen" title="no title">
   </head>
   <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="./" class="navbar-brand">Minha Loja</a>
+        </div>
+        <div class="">
+          <ul class="nav navbar-nav">
+            <li><a href="produto-formulario.php">Adicionar produto</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <div class="container">
       <div class="principal">
