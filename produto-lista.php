@@ -21,6 +21,7 @@ include 'banco-produto.php';
     <td><?=$produto['preco']?></td>
     <td><?= substr($produto['descricao'],0,40)?></td>
     <td><?=$produto['categoria_nome']?></td>
+    <td><a href="produto-altera-formulario.php?id=<?=$produto['id']?>" class="btn btn-primary">Alterar</a></td>
     <td>
       <form  action="remove-produto.php" method="post">
         <input type="hidden" name="id" id="id" value="<?=$produto['id']?>">
