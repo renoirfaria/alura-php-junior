@@ -2,7 +2,7 @@
 include('cabecalho.php');
 ?>
 <h1>Formulário de produto</h1>
-<form class="" action="adicionaproduto.php" method="get">
+<form class="" action="adicionaproduto.php" method="POST">
   <table class="table">
     <tr>
       <td>
@@ -19,8 +19,14 @@ include('cabecalho.php');
       <td>
         <input type="number" name="preco" value="" class="form-control">
       </td>
-
-
+    </tr>
+    <tr>
+      <td>
+        Descrição:
+      </td>
+      <td>
+        <textarea name="descricao" rows="8" cols="40" class="form-control"></textarea>
+      </td>
     </tr>
     <tr>
       <td colspan="2">

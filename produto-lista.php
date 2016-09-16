@@ -17,14 +17,14 @@ include 'banco-produto.php';
     foreach ($produtos as $produto):
   ?>
   <tr>
+    <td><?=$produto['nome']?></td>
+    <td><?=$produto['preco']?></td>
+    <td><?= substr($produto['descricao'],0,40)?></td>
     <td>
-      <?=$produto['nome']?>
-    </td>
-    <td>
-      <?=$produto['preco']?>
-    </td>
-    <td>
-      <a href="remove-produto.php?id=<?=$produto['id']?>" class="text-danger">Remover</a>
+      <form  action="remove-produto.php" method="post">
+        <input type="hidden" name="id" id="id" value="<?=$produto['id']?>">
+        <button type="submit" class="btn btn-danger">Remover</a>
+      </form>
     </td>
   </tr>
 <?php endforeach ?>
