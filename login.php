@@ -6,9 +6,11 @@ include 'logica-usuario.php';
 
 $usuario = buscaUsuario($conexao,$_POST['email'],$_POST['senha']);
 if($usuario == null) {
-  header('Location: index.php?login=false');
+  $_SESSION['danger'] = "Usuário ou senha inválido";
+  header('Location: index.php');
 } else {
   logaUsuario($usuario['email']);
-  header('Location: index.php?login=true');
+  $_SESSION['success'] = "Login realizado com sucesso";
+  header('Location: index.php');
 }
 die();

@@ -2,13 +2,15 @@
 include 'cabecalho.php';
 include 'conecta.php';
 include 'banco-produto.php';
+include 'logica-usuario.php';
+
+if(isset($_SESSION['success'])){
+  echo '<p class="alert alert-success">'.$_SESSION['success'].'</p>';
+  unset($_SESSION['success']);
+}
 ?>
 
-<?php if(array_key_exists('removido',$_GET) && $_GET['removido'] == 'true'): ?>
-<p class="alert alert-success">
-  Produto apagado com sucesso
-</p>
-<?php endif ?>
+
 
 
 <table class="table table-striped table-bordered">
