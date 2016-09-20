@@ -1,22 +1,31 @@
 <?php
-include 'conecta.php';
+require_once 'conecta.php';
+require_once 'class/Produto.php';
+require_once 'class/Categoria.php';
 
 function listaProdutos($conexao){
   $produtos = array();
   $resultado = mysqli_query($conexao,"select p.*, c.nome as categoria_nome from produtos as p join categorias as c on p.categoria_id = c.id");
-  while($produto = mysqli_fetch_assoc($resultado)){
+  while($produto_array = mysqli_fetch_assoc($resultado)){
+
+    $categoria = new Categoria();
+    $categoria->setNome($produto_array['categoria_nome']);
+
+    $produto = new Produto($produto_array['nome'],$produto_array['preco'],$produto_array['descricao'],$categoria,$produto_array['usado']);
+    $produto->setId($produto_array['id']);
+
     array_push($produtos,$produto);
   }
   return $produtos;
 }
 
-function insereProduto($conexao,$nome,$preco,$descricao,$categoria_id,$usado){
-  $query = "insert into produtos (nome,preco,descricao,categoria_id,usado) values ('{$nome}',{$preco},'{$descricao}',{$categoria_id},'{$usado}')";
+function insereProduto($conexao,Produto $produto){
+  $query = "insert into produtos (nome,preco,descricao,categoria_id,usado) values ('{$produto->getNome()}',{$produto->getPreco()},'{$produto->getDescricao()}',{$produto->getCategoria()->getId()},'{$produto->getUsado()}')";
   return mysqli_query($conexao,$query);
 }
 
-function alteraProduto($conexao,$id,$nome,$preco,$descricao,$categoria_id,$usado) {
-  $query = "UPDATE produtos SET nome = '{$nome}', preco = '{$preco}', descricao = '{$descricao}', categoria_id = '{$categoria_id}',usado = '{$usado}' WHERE id = {$id}";
+function alteraProduto($conexao,Produto $produto) {
+  $query = "UPDATE produtos SET nome = '{$produto->getNome()}', preco = '{$produto->getPreco()}', descricao = '{$produto->getDescricao()}',categoria_id = '{$produto->getCategoria()->getId()}',usado = '{$produto->getUsado()}' WHERE id = {$produto->getId()}";
   return mysqli_query($conexao,$query);
 }
 
@@ -26,7 +35,19 @@ function removeProduto($conexao,$id) {
 }
 
 function buscaProduto($conexao,$id) {
-  $query = "SELECT * FROM PRODUTOS WHERE id = {$id}";
-  $resultado = mysqli_query($conexao,$query);
-  return mysqli_fetch_assoc($resultado);
+  $query           = "select * from produtos where id = {$id}";
+  $resultado       = mysqli_query($conexao, $query);
+  $produto_buscado = mysqli_fetch_assoc($resultado);
+
+  $categoria     = new Categoria();
+  $categoria->setId($produto_buscado['categoria_id']);
+
+  $produto            = new Produto();
+  $produto->setId($produto_buscado['id']);
+  $produto->setNome($produto_buscado['nome']);
+  $produto->setDescricao($produto_buscado['descricao']);
+  $produto->setCategoria($categoria);
+  $produto->setPreco($produto_buscado['preco']);
+  $produto->setUsado($produto_buscado['usado']);
+  return $produto;
 }
