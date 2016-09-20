@@ -11,13 +11,9 @@ function listaProdutos($conexao){
     $categoria = new Categoria();
     $categoria->setNome($produto_array['categoria_nome']);
 
-    $produto = new Produto();
+    $produto = new Produto($produto_array['nome'],$produto_array['preco'],$produto_array['descricao'],$categoria,$produto_array['usado']);
     $produto->setId($produto_array['id']);
-    $produto->setNome($produto_array['nome']);
-    $produto->setPreco($produto_array['preco']);
-    $produto->setDescricao($produto_array['descricao']);
-    $produto->setCategoria($categoria);
-    $produto->setUsado($produto_array['usado']);
+
     array_push($produtos,$produto);
   }
   return $produtos;
