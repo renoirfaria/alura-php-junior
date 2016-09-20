@@ -2,6 +2,9 @@
 include'cabecalho.php';
 include 'conecta.php';
 include 'banco-categoria.php';
+include 'logica-usuario.php';
+
+verificaUsuario();
 
 $categorias = listaCategorias($conexao);
 
@@ -38,7 +41,7 @@ $categorias = listaCategorias($conexao);
         Usado:
       </td>
       <td>
-        <input type="checkbox" name="usado" value="1"> Usado 
+        <input type="checkbox" name="usado" value="1"> Usado
       </td>
     </tr>
     <tr>
