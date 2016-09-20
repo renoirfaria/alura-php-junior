@@ -1,8 +1,7 @@
 <?php
-include'cabecalho.php';
-include 'conecta.php';
-include 'banco-produto.php';
-include 'banco-categoria.php';
+require_once'cabecalho.php';
+require_once 'banco-produto.php';
+require_once 'banco-categoria.php';
 
 $id         = $_GET['id'];
 $produto    = buscaProduto($conexao,$id);
@@ -14,7 +13,7 @@ $usado      = $produto['usado'] ? 'checked="checked"' : '';
 <form class="" action="altera-produto.php" method="POST">
   <input type="hidden" name="id" value="<?=$id?>">
   <table class="table">
-    <?php include 'produto-formulario-base.php'; ?>
+    <?php require_once 'produto-formulario-base.php'; ?>
     <tr>
       <td colspan="2">
         <button type="submit" name="button" class="btn btn-primary">Cadastrar</button>
@@ -23,5 +22,5 @@ $usado      = $produto['usado'] ? 'checked="checked"' : '';
   </table>
 </form>
 <?php
-include('rodape.php');
+require_once('rodape.php');
 ?>

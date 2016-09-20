@@ -1,6 +1,6 @@
 <?php
-include 'cabecalho.php';
-include 'logica-usuario.php';
+require_once 'cabecalho.php';
+require_once 'logica-usuario.php';
 ?>
 <?php if(usuarioEstaLogado()): ?>
   <p class="text-success">
@@ -29,5 +29,5 @@ include 'logica-usuario.php';
 </form>
 <?php endif ?>
 <?php
-include('rodape.php');
+require_once('rodape.php');
 ?>

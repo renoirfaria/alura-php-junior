@@ -1,4 +1,5 @@
 <?php
+include 'conecta.php';
 
 function listaProdutos($conexao){
   $produtos = array();
