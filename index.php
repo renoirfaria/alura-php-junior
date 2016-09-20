@@ -2,6 +2,9 @@
 include 'cabecalho.php';
 include 'logica-usuario.php';
 
+if(isset($_GET['logout']) && $_GET['logout'] == 'true'){
+  echo '<p class="alert alert-success">Deslogado com sucesso</p>';
+}
 if(isset($_GET['login']) && $_GET['login'] == 'true'){
   echo '<p class="alert alert-success">Logado com sucesso</p>';
 }
@@ -15,6 +18,7 @@ if(isset($_GET['falhaDeSeguranca']) && $_GET['falhaDeSeguranca'] == 'true'){
 <?php if(usuarioEstaLogado()): ?>
   <p class="text-success">
     Você está logado como <?=usuarioLogado()?>
+    <a href="logout.php">Deslogar</a>
   </p>
 <?php else: ?>
 <h1>Bem vindo!</h1>
