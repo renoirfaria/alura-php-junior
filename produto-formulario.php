@@ -2,10 +2,15 @@
 require_once'cabecalho.php';
 require_once 'banco-categoria.php';
 require_once 'logica-usuario.php';
+require_once 'class/Produto.php';
 
 verificaUsuario();
 
-$produto    = array('nome' => '', 'preco' => 'vazio', 'descricao' => '', 'categoria' => '1');
+$categoria = new Categoria();
+$categoria->id = 1;
+
+$produto = new Produto();
+$produto->categoria = $categoria;
 $usado      = '';
 $categorias = listaCategorias($conexao);
 
