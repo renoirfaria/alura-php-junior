@@ -3,7 +3,7 @@
     Nome:
   </td>
   <td>
-    <input type="text" name="nome" value="<?=$produto->nome?>" class="form-control">
+    <input type="text" name="nome" value="<?=$produto->getNome()?>" class="form-control">
   </td>
 </tr>
 <tr>
@@ -11,7 +11,7 @@
     Preco:
   </td>
   <td>
-    <input type="number" name="preco" value="<?=$produto->preco?>" class="form-control">
+    <input type="number" name="preco" value="<?=$produto->getPreco()?>" class="form-control">
   </td>
 </tr>
 <tr>
@@ -19,7 +19,7 @@
     Descrição:
   </td>
   <td>
-    <textarea name="descricao" rows="8" cols="40" class="form-control"><?=$produto->descricao?></textarea>
+    <textarea name="descricao" rows="8" cols="40" class="form-control"><?=$produto->getDescricao()?></textarea>
   </td>
 </tr>
 <tr>
@@ -27,7 +27,7 @@
     Usado:
   </td>
   <td>
-    <input type="checkbox" name="usado" value="1" <?=$produto->usado?>> Usado
+    <input type="checkbox" name="usado" value="1" <?=$produto->getUsado()?>>Usado
   </td>
 </tr>
 <tr>
@@ -37,11 +37,11 @@
   <td>
     <select class="form-control" name="categoria_id">
       <?php foreach ($categorias as $categoria):
-        $essaEhACategoria = $produto->categoria->id == $categoria->id;
+        $essaEhACategoria = $produto->getCategoria()->getId() == $categoria->getId();
         $selecao = $essaEhACategoria ? "selected='selected'" : "";
         ?>
-        <option value="<?=$categoria->id?>" <?=$selecao?>>
-          <?=$categoria->nome?>
+        <option value="<?=$categoria->getId()?>" <?=$selecao?>>
+          <?=$categoria->getNome()?>
         </option>
       <?php endforeach; ?>
     </select>
