@@ -2,7 +2,6 @@
 include 'cabecalho.php';
 include 'conecta.php';
 include 'banco-produto.php';
-include 'mostra-alerta.php';
 
 ?>
 
