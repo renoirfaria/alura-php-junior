@@ -2,17 +2,11 @@
 include 'cabecalho.php';
 include 'conecta.php';
 include 'banco-produto.php';
-include 'logica-usuario.php';
+include 'mostra-alerta.php';
 
-if(isset($_SESSION['success'])){
-  echo '<p class="alert alert-success">'.$_SESSION['success'].'</p>';
-  unset($_SESSION['success']);
-}
 ?>
 
-
-
-
+<?php  mostraAlerta('success');?>
 <table class="table table-striped table-bordered">
   <?php
     $produtos = listaProdutos($conexao);
