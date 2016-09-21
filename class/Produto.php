@@ -7,6 +7,7 @@ class Produto {
   private $descricao;
   private $categoria;
   private $usado;
+  private $isbn;
 
   function __construct($nome, $preco, $descricao, Categoria $categoria, $usado){
     $this->nome      = $nome;
@@ -53,6 +54,10 @@ class Produto {
 
   public function setUsado($usado){
     $this->usado = $usado;
+  }
+
+  public function temIsbn(){
+    return $this instanceof Livro;
   }
 
   function __toString() {
