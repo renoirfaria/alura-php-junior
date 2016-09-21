@@ -19,9 +19,10 @@ if(array_key_exists('usado',$_POST)){
   $usado = 0;
 }
 
-$produto = new Produto($nome,$preco,$descricao,$categoria,$usado);
+$produto    = new Produto($nome,$preco,$descricao,$categoria,$usado);
+$produtoDao = new ProdutoDao($conexao);
 
-if(insereProduto($conexao,$produto)){
+if($produtoDao->insereProduto($produto)){
 ?>
   <p class="text-success">
     O Produto <?php echo $produto->getNome(); ?>, <?=$produto->getPreco()?> adicionado com sucesso!

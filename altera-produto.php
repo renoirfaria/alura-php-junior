@@ -1,7 +1,5 @@
-
 <?php
 require_once 'cabecalho.php';
-require_once 'banco-produto.php';
 
 
 ;
@@ -18,8 +16,9 @@ if(array_key_exists('usado',$_POST)){
 
 $produto = new Produto($_POST['nome'],$_POST['preco'],$_POST['descricao'],$categoria,$usado);
 $produto->setId($_POST['id']);
+$produtoDao = new ProdutoDao($conexao);
 
-if(alteraProduto($conexao,$produto)){
+if($produtoDao->alteraProduto($produto)){
   ?>
   <p class="text-success">
     O Produto <?php echo $produto->getNome(); ?>, <?=$produto->getPreco()?> foi alterado com sucesso!
