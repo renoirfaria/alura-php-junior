@@ -1,5 +1,10 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
+
+spl_autoload_register(function($nomeDaClasse){
+  require_once 'class/'.$nomeDaClasse.'.php';
+});
+
 require_once 'mostra-alerta.php';
 ?>
 <!DOCTYPE html>

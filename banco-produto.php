@@ -1,7 +1,5 @@
 <?php
 require_once 'conecta.php';
-require_once 'class/Produto.php';
-require_once 'class/Categoria.php';
 
 function listaProdutos($conexao){
   $produtos = array();
@@ -42,12 +40,7 @@ function buscaProduto($conexao,$id) {
   $categoria     = new Categoria();
   $categoria->setId($produto_buscado['categoria_id']);
 
-  $produto            = new Produto();
+  $produto = new Produto($produto_buscado['nome'],$produto_buscado['preco'],$produto_buscado['descricao'],$categoria,$produto_buscado['usado']);
   $produto->setId($produto_buscado['id']);
-  $produto->setNome($produto_buscado['nome']);
-  $produto->setDescricao($produto_buscado['descricao']);
-  $produto->setCategoria($categoria);
-  $produto->setPreco($produto_buscado['preco']);
-  $produto->setUsado($produto_buscado['usado']);
   return $produto;
 }

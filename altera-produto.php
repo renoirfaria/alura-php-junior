@@ -2,23 +2,22 @@
 <?php
 require_once 'cabecalho.php';
 require_once 'banco-produto.php';
-require_once 'class/Produto.php';
-require_once 'class/Categoria.php';
 
-$produto   = new Produto();
+
+;
 $categoria = new Categoria();
 $categoria->setId($_POST['categoria_id']);
 
-$produto->setId($_POST['id']);
-$produto->setNome($_POST['nome']);
-$produto->setPreco($_POST['preco']);
-$produto->setDescricao($_POST['descricao']);
+
+
 if(array_key_exists('usado',$_POST)){
-  $produto->setUsado(1);
+  $usado = 1;
 } else {
-  $produto->setUsado(0);
+  $usado = 0;
 }
-$produto->setCategoria($categoria);
+
+$produto = new Produto($_POST['nome'],$_POST['preco'],$_POST['descricao'],$categoria,$usado);
+$produto->setId($_POST['id']);
 
 if(alteraProduto($conexao,$produto)){
   ?>

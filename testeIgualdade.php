@@ -1,5 +1,5 @@
 <?php
-  require_once 'class/Produto.php';
+  
 
   $produto = new Produto();
   $produto->setNome('Livro da casa do código');
