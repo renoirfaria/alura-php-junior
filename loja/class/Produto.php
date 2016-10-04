@@ -1,6 +1,6 @@
 <?php
 
-class Produto {
+abstract class Produto {
   private $id;
   private $nome;
   private $preco;
@@ -53,6 +53,24 @@ class Produto {
 
   public function setUsado($usado){
     $this->usado = $usado;
+  }
+
+  public function temIsbn() {
+    return $this instanceof Livro;
+  }
+
+  public function temTaxaImpressao() {
+    return $this instanceof LivroFisico;
+  }
+
+  public function temWaterMark() {
+    return $this instanceof Ebook;
+  }
+
+  abstract public function atualizaBaseadoEm($params);
+
+  public function calculaImposto() {
+      return $this->preco * 0.195;
   }
 
   function __toString() {
