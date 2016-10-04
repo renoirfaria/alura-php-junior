@@ -55,6 +55,10 @@ class Produto {
     $this->usado = $usado;
   }
 
+  public function temIsbn() {
+    return $this instanceof Livro;
+  }
+
   function __toString() {
     return $this->nome .': R$: '.$this->preco;
   }
