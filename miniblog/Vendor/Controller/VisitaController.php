@@ -1,14 +1,10 @@
 <?php
 namespace Vendor\Controller;
 
-use Vendor\Model\Postagem;
-use Vendor\Model\Usuario;
-use Vendor\DAO\PostagemDAO;
-use Vendor\DAO\UsuarioDAO;
-use Vendor\Model\Noticia;
-use Vendor\Model\Login;
-use Vendor\Factory\ConnectionFactory;
+use Vendor\Model\{Postagem,Usuario,Noticia,Login};
+use Vendor\DAO\{PostagemDAO,UsuarioDAO};
 use Vendor\Lib\View;
+use Vendor\Factory\ConnectionFactory;
 
 class VisitaController{
 	private $postagemDao;

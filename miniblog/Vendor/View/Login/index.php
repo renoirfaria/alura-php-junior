@@ -1,17 +1,8 @@
 <?php 
 	
-	if(!isset($viewBag['error'])){
-	$error = '';
-	}
-	else{
-	$error = $viewBag['error'];
-	}
-	if(!isset($viewBag['register'])){
-	$register = '';
-	}
-	else{
-	$register = $viewBag['register'];
-	}
+	$error = $viewBag['error'] ?? '';
+	$register = $viewBag['register'] ?? '';
+	
 ?>
 <!DOCTYPE html>
 <html>

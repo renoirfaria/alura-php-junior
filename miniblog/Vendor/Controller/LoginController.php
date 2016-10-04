@@ -1,13 +1,10 @@
 <?php
 namespace Vendor\Controller;
 
-use Vendor\DAO\UsuarioDAO;
-use Vendor\DAO\PostagemDAO;
+use Vendor\Model\{Login,Usuario};
+use Vendor\DAO\{UsuarioDAO,PostagemDAO};
+use Vendor\Lib\{View,UsuarioValidator};
 use Vendor\Factory\ConnectionFactory;
-use Vendor\Lib\View;
-use Vendor\Model\Login;
-use Vendor\Model\Usuario;
-use Vendor\Lib\UsuarioValidator;
 
 class LoginController{
 	private $usuarioDao;
