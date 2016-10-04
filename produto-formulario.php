@@ -8,7 +8,7 @@ $categoria    = new Categoria();
 $categoriaDao = new CategoriaDao($conexao);
 $categoria->setId(1);
 
-$produto = new Produto('','','',$categoria,'');
+$produto = new LivroFisico('','','',$categoria,'');
 
 $categorias = $categoriaDao->listaCategorias();
 
