@@ -13,47 +13,62 @@ class PostagemDAO{
 		$this->usuarioDao = new UsuarioDao($con);
 	}
 	
-	public function adiciona(Postagem $postagem, $usuarioId){
+	public function adiciona(Postagem $postagem,Int $usuarioId){
 		$query = "INSERT INTO Postagem (conteudo, data, usuarioId) VALUES (
-		'".mysql_real_escape_string($postagem->getConteudo())."',
-		'".mysql_real_escape_string($postagem->getData())."',
-		'".mysql_real_escape_string($usuarioId)."')";
-
-		return mysql_query($query);
+		:conteudo,:data,:usuarioId)";
+		
+		$stm = $this->con->prepare($query);
+		$stm->bindValue(":conteudo",$postagem->getConteudo());
+		$stm->bindValue(":data",date("Y-m-d"));
+		$stm->bindValue(":usuarioId",$usuarioId);
+		
+		return $stm->execute();
 	}
 
 	public function altera(Postagem $postagem){
-		$query = "UPDATE Postagem SET 
-		conteudo='".mysql_real_escape_string($postagem->getConteudo())."' 
-		WHERE id='".mysql_real_escape_string($postagem->getId())."'";
+		$query = "UPDATE Postagem SET conteudo=:conteudo WHERE id=:id";
+		var_dump($query);
+		$stm = $this->con->prepare($query);
+		$stm->bindValue(":conteudo",$postagem->getConteudo());
+		$stm->bindValue(":id",$postagem->getId());
 		
-		return mysql_query($query);
+		return $stm->execute();
 	}
 
-	public function remove($id){
-		$query = "DELETE FROM Postagem WHERE id = {$id}";
-		$result = mysql_query($query);
-		return $result;
-	}
+	public function remove(Int $id){
+		$query = "DELETE FROM Postagem WHERE id = :id";
 
-	public function lista($id){
-		$query = "SELECT * FROM Postagem WHERE usuarioId = {$id} ORDER BY id DESC";
-		$result = mysql_query($query);
+		$stm = $this->con->prepare($query);
+		$stm->bindValue(":id",$id);
+
+		return $stm->execute();
+	}
+	
+	public function lista(Int $id) : array{
+		$query = "SELECT * FROM Postagem WHERE usuarioId = :id ORDER BY id DESC";
+		
+		$stm = $this->con->prepare($query);
+		$stm->bindValue(":id",$id);
+		$stm->execute();
 		$postagens = array();
-		while ($postagem = mysql_fetch_object($result,'Vendor\Model\Postagem')) {
+		
+		while ($postagem = $stm->fetchObject('Vendor\Model\Postagem')) {
     		$postagem->setData(date("d/m/Y", strtotime($postagem->getData())));
 
     		array_push($postagens, $postagem);
 		}
 		return $postagens;
 	}
-	public function postsPorSemana($usuarioId) {
-		$query = "SELECT * FROM Postagem WHERE usuarioId = {$usuarioId}";
-		$result = mysql_query($query);
 
+	public function postsPorSemana(Int $usuarioId) {
+		$query = "SELECT * FROM Postagem WHERE usuarioId = :usuarioId";
+		
+		$stm = $this->con->prepare($query);
+		$stm->bindValue(":usuarioId",$usuarioId);
+		$stm->execute();
 		$postagens = array();
 		
-		while ($postagem = mysql_fetch_object($result,'Vendor\Model\Postagem')) {
+		while ($postagem = $stm->fetchObject('Vendor\Model\Postagem')) {
     		array_push($postagens, $postagem);
 		}
 		
@@ -63,14 +78,9 @@ class PostagemDAO{
 
 		$dataDeIngresso = new \dateTime($this->usuarioDao->buscaPorId($usuarioId)->getDataDeIngresso());
 
-		$diferenca;
-
-		if($hoje->diff($dataDeIngresso)->days == 0){
-			$diferenca = 1;		
-		}
-		else{
-			$diferenca = $hoje->diff($dataDeIngresso)->days/7;
-		}
-		return ($numeroDePostagens / $diferenca);
+		$diferença = ($hoje->diff($dataDeIngresso)->days == 0) ? 1 
+					: ($hoje->diff($dataDeIngresso)->days/7);
+		
+		return intdiv($numeroDePostagens , $diferença);
 	}
 }

@@ -45,7 +45,7 @@ class UsuarioDAO{
 		return $stm->execute();
 	}
 
-	public function buscaPorId($id){
+	public function buscaPorId(int $id) : Usuario{
 		$query = "SELECT * FROM Usuario WHERE id = :id";
 		
 		$stm = $this->con->prepare($query);
@@ -58,7 +58,7 @@ class UsuarioDAO{
 		return $usuario;
 	}
 
-	public function buscaPorNome($nome){
+	public function buscaPorNome(String $nome) : Usuario{
 		$query = "SELECT * FROM Usuario WHERE nome = :nome";
 
 		$stm = $this->con->prepare($query);
@@ -70,7 +70,7 @@ class UsuarioDAO{
 		return $usuario;
 	}
 
-	public function buscaPorEmail($email){
+	public function buscaPorEmail(String $email) : Usuario{
 		$query = "SELECT * FROM Usuario WHERE email = :email";
 		
 		$stm = $this->con->prepare($query);
@@ -82,7 +82,7 @@ class UsuarioDAO{
 		return $usuario;
 	}
 
-	public function login($email,$senha){
+	public function login(String $email,String $senha) : Usuario{
 		$query = "SELECT * FROM Usuario WHERE Email = :email AND Senha = :senha";
 
 		$stm = $this->con->prepare($query);
